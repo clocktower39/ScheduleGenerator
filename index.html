@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/568a0eaeb5.js" crossorigin="anonymous"></script>
+    <title>Schedule Generator</title>
+</head>
+<body>
+    <div id="overlay"></div>
+    <section id="section-top">
+        <h2 id="title">Random Schedule Generator</h2>
+        <div id="staff-container">
+            <h3 class="subtitle">Staff on Schedule</h3>
+
+            <div id="attendance-container">
+                <div id="absent-section">
+                    <h5>Absent:</h5>
+                    <i class="fas fa-plus-circle"></i>
+                </div>
+
+                <div id="attendance">
+                </div>
+
+                <div id="max-load-container">
+                    <input onkeydown="return false" id="max-load-input" type="number" value="15" min="15" max="45"/>
+                    <h5>MAX LOAD</h5>
+                    <button id="create-schedule" type="button" class="btn btn-primary">Submit</button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+    <section id="section-bottom">
+        <div id="schedule-container">
+            <h3 class="subtitle">Positions</h3>
+            <div id="schedule-row" class="schedule-row">
+            </div>
+        </div>
+    </section>
+
+    <script src="js/shuffle.js"></script>
+    <script src="js/variables.js"></script>
+    <script src="js/managePositions.js"></script>
+    <script src="js/manageStaff.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/script.js"></script>
+
+</body>
+</html>
