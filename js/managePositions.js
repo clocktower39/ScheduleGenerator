@@ -14,7 +14,7 @@ let addTask = (task) => {
     taskInput.id = `${task.taskID}-score-input`;
     taskInput.className = 'adjust-score-inputs';
     taskInput.type = "number";
-    taskInput.value = task.score;
+    taskInput.value = Number(task.score);
     taskInput.min = 0;
     taskInput.max = 30;
     taskInput.onkeyup = (e) => {
@@ -26,6 +26,13 @@ let addTask = (task) => {
             e.target.style.color = '#507282';
         }
     };
+    taskInput.addEventListener('change', (e) => {
+        tasks.forEach(task => {
+            if(task.taskID == e.target.nextElementSibling.id){
+                task.score = Number(e.target.value);
+            }
+        })
+    })
 
     taskP.id = task.taskID;
     taskP.className = 'task-assignee fade-in';
