@@ -18,8 +18,6 @@ let addTask = (task) => {
     taskInput.min = 0;
     taskInput.max = 30;
     taskInput.onkeyup = (e) => {
-        console.log(e.target);
-        console.log(e.target.value);
 
         if(e.target.value > 30){
             e.target.style.color = 'red';
@@ -67,7 +65,7 @@ let addTaskButton = () => {
     createBtn.style.fontSize = "50px";
     createBtn.id = "add-new-task-btn";
     createBtn.onclick = (e) => {
-        openModal();
+        openAddTaskModal();
     }
 
     taskP.innerText = "Position";
@@ -83,7 +81,7 @@ let addPositionToTasks = (task, taskID, score, associatedProgram, assigned=false
     tasks.push({
         task: task,
         taskID: taskID,
-        score: score,
+        score: Number(score),
         associatedProgram: associatedProgram,
         assigned: assigned,
         worker: worker,
@@ -91,54 +89,53 @@ let addPositionToTasks = (task, taskID, score, associatedProgram, assigned=false
     addTask({
         task: task,
         taskID: taskID,
-        score: score,
+        score: Number(score),
         associatedProgram: associatedProgram,
         assigned: assigned,
         worker: worker,
     });
 }
 
-let openModal = () => {
+let openAddTaskModal = () => {
     let modal = document.getElementById('add-new-position-modal');
-    modal.style.display = "block";
+    modal.style.display = "flex";
     let overlay = document.getElementById('overlay');
     overlay.style.display = "block";
 }
 
-let closeModal = () => {
+let closeAddTaskModal = () => {
     let modal = document.getElementById('add-new-position-modal');
     modal.style.display = 'none';
     let overlay = document.getElementById('overlay');
     overlay.style.display = "none";
 }
 
-let createModal = () => {
+let createAddTaskModal = () => {
     let modal = document.createElement('div');
 
-    let closeModalDiv = document.createElement('div');
-    closeModalDiv.innerHTML = '<i class="far fa-times-circle"></i>';
-    closeModalDiv.style.display = 'flex';
-    closeModalDiv.style.justifyContent = 'flex-end';
-    closeModalDiv.onclick = (e) => {
-        closeModal();
+    let closeAddTaskModalDiv = document.createElement('div');
+    closeAddTaskModalDiv.innerHTML = '<i class="far fa-times-circle"></i>';
+    closeAddTaskModalDiv.style.display = 'flex';
+    closeAddTaskModalDiv.style.justifyContent = 'flex-end';
+    closeAddTaskModalDiv.onclick = (e) => {
+        closeAddTaskModal();
     }
 
-    modal.appendChild(closeModalDiv);
+    modal.appendChild(closeAddTaskModalDiv);
 
-    createModalInput("task","task-input-modal", modal);
-    createModalInput("taskID","taskID-input-modal", modal);
-    createModalInput("score","score-input-modal", modal);
-    createModalInput("associatedProgram","associatedProgram-input-modal", modal);
+    createAddTaskModalInput("task","task-input-modal", modal);
+    createAddTaskModalInput("score","score-input-modal", modal);
+    createAddTaskModalInput("associatedProgram","associatedProgram-input-modal", modal);
 
     let submitButton = document.createElement('button');
     submitButton.innerText = "Create Position"
     submitButton.onclick = (e) => {
         let task = document.getElementById('task-input-modal').value;
-        let taskID = document.getElementById('taskID-input-modal').value;
+        let taskID = task.split(' ').join('-');
         let score = document.getElementById('score-input-modal').value;
         let associatedProgram = document.getElementById('associatedProgram-input-modal').value;
         addPositionToTasks(task, taskID, score, associatedProgram);
-
+        closeAddTaskModal();
     }
 
     modal.id = 'add-new-position-modal';
@@ -149,12 +146,12 @@ let createModal = () => {
     document.body.appendChild(modal);
 }
 
-let createModalInput = (labelName, id, modal) => {
+let createAddTaskModalInput = (labelName, id, modal) => {
     let modalInputDiv = document.createElement('div');
     let input = document.createElement('input');
     let label = document.createElement('label');
 
-    modalInputDiv.id = `${id}-modal-input-div`;
+    modalInputDiv.id = `${id}-input-div`;
     modalInputDiv.className = `modal-input-div`;
     
     input.id = `${id}`;
@@ -192,7 +189,7 @@ let removeTask = (taskToRemove) => {
     console.log(tasks)
 }
 
-createModal();
+createAddTaskModal();
 
 addTaskButton();
 

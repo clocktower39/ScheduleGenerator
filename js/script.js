@@ -4,25 +4,31 @@ maxLoadInput.value = maxLoad;
 
 maxLoadInput.addEventListener("change", (e) => {
     maxLoad = e.target.value;
+    workers.forEach(worker => worker.maxLoad = maxLoad);
 });
 
 let attendanceCheckboxes = document.querySelectorAll('.attendance-checkbox');
 
 attendanceCheckboxes.forEach(box => {
-    box.checked = false;
+    box.checked = true;
 
     box.addEventListener('change', (e) => {
-        if(e.target.checked == true){
+        if(e.target.checked == false){
             e.target.nextElementSibling.style.color = 'red';
             workers.forEach(worker => {
                 if(worker.id == e.target.name){
-                    worker.offwork = true;
+                    worker.available = false;
                     console.log(`${worker.firstName} ${worker.lastName} is off work`)
                 }
             })
         }
         else {
             e.target.nextElementSibling.style.color = 'black';
+            workers.forEach(worker => {
+                if(worker.id == e.target.name){
+                    worker.available = true;
+                }
+            })
         }
     })
 });
@@ -30,15 +36,17 @@ attendanceCheckboxes.forEach(box => {
 let createSchedule = () => {
     tasks.forEach((task) => {
         let randomOrderWorkers = shuffle(workers);
+
         for(let i = 0; i < randomOrderWorkers.length; i++){
-            if((randomOrderWorkers[i].load + task.score) <= maxLoad && randomOrderWorkers[i].programs.includes(task.associatedProgram) && randomOrderWorkers[i].offwork !== true /* && randomOrderWorkers[i] !== tasks[0].worker && randomOrderWorkers[i] !== tasks[1].worker */ ){
-                
-                randomOrderWorkers[i].load += task.score;
+
+            if(((randomOrderWorkers[i].load + task.score) <= Number(randomOrderWorkers[i].maxLoad)) && randomOrderWorkers[i].programs.includes(task.associatedProgram) && randomOrderWorkers[i].available !== false ){
+                console.log((randomOrderWorkers[i].load + task.score) <= Number(randomOrderWorkers[i].maxLoad));
+                console.log(randomOrderWorkers[i]);
+                randomOrderWorkers[i].load += Number(task.score);
                 task.worker = randomOrderWorkers[i];
                 task.assigned = true;
                 let taskAssignment = `${task.worker.firstName} ${task.worker.lastName}`;
 
-                console.log(document.getElementById(task.taskID).classList)
                 document.getElementById(task.taskID).innerText = taskAssignment;
                 
                 document.getElementById(task.taskID).classList.add('fade-in');
@@ -64,34 +72,18 @@ createScheduleBtn.addEventListener('click', (e) => {
     createSchedule();
 });
 
-let clearMemory = () => {
-    tasks.forEach((task) => {
-        document.getElementById(task.taskID).innerText = "";
-        document.getElementById(task.taskID).style.color = "#507282";
-        task.assigned = false;
-        
-    });
-    workers.forEach(worker => {
-        worker.load = 0;
-    });
-    
-}
-
 let scoreInputs = document.querySelectorAll('.adjust-score-inputs');
     scoreInputs.forEach(input => {
         tasks.forEach(task => {
             if(task.taskID == input.nextElementSibling.id){
-                input.value = task.score;
+                input.value = Number(task.score);
             }
         })
         input.addEventListener('change', (e) => {
             tasks.forEach(task => {
                 if(task.taskID == e.target.nextElementSibling.id){
-                    task.score = e.target.value;
+                    task.score = Number(e.target.value);
                 }
             })
         })
     });
-
-let scheduleRow = document.getElementById('schedule-row');
-let positions = document.querySelectorAll('.positions');

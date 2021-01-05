@@ -7,7 +7,9 @@ let workers = [
         id: "stephen",
         programs: ["Clozapine", "Nulojix", "Xiaflex", "Aveed"],
         load: 0,
-        offwork: false
+        maxLoad: maxLoad,
+        assignments: [],
+        available: true
     },
     {
         firstName: "Andreal",
@@ -15,7 +17,9 @@ let workers = [
         id: "andreal",
         programs: ["Clozapine", "Xiaflex", "Alosetron", "Aveed" ],
         load: 0,
-        offwork: false
+        maxLoad: maxLoad,
+        assignments: [],
+        available: true
     },
     {
         firstName: "Bryce",
@@ -23,7 +27,9 @@ let workers = [
         id: "bryce",
         programs: ["Clozapine", "Bosentan"],
         load: 0,
-        offwork: false
+        maxLoad: maxLoad,
+        assignments: [],
+        available: true
     },
     {
         firstName: "Zach",
@@ -31,7 +37,9 @@ let workers = [
         id: "zach",
         programs: ["Clozapine", "Bosentan"],
         load: 0,
-        offwork: false
+        maxLoad: maxLoad,
+        assignments: [],
+        available: true
     },
     {
         firstName: "Carvonne",
@@ -39,7 +47,9 @@ let workers = [
         id: "carvonne",
         programs: ["Clozapine", "Nulojix", "Aveed", "Xiaflex"],
         load: 0,
-        offwork: false
+        maxLoad: maxLoad,
+        assignments: [],
+        available: true
     },
     {
         firstName: "Taylor",
@@ -47,7 +57,9 @@ let workers = [
         id: "taylor",
         programs: ["Clozapine", "Nulojix", "Aveed", "Xiaflex"],
         load: 0,
-        offwork: false
+        maxLoad: maxLoad,
+        assignments: [],
+        available: true
     },
     {
         firstName: "Daisy",
@@ -55,7 +67,9 @@ let workers = [
         id: "daisy",
         programs: ["Clozapine", "Alosetron", "Bosentan"],
         load: 0,
-        offwork: false
+        maxLoad: maxLoad,
+        assignments: [],
+        available: true
     },
     {
         firstName: "Matt",
@@ -63,7 +77,9 @@ let workers = [
         id: "matt",
         programs: ["Clozapine", "Bosentan"],
         load: 0,
-        offwork: false
+        maxLoad: maxLoad,
+        assignments: [],
+        available: true
     }
 ];
 

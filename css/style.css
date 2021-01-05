@@ -35,7 +35,7 @@ body {
     flex-direction: column;
     flex: 1 1 100%;
     align-items: center;
-    background-color: #eae9e5;
+    background-color: #c0beb4;
     width: 83%;
     max-width: 1035px;
 }
@@ -221,11 +221,18 @@ section {
 
 #add-new-position-modal {
     display:flex;
+    flex-direction: column;
     position:fixed;
     top: 35%;
     background-color: #507282;
     padding: 25px;
+    border-radius: 13px;
     z-index: 100;
+    color: white;
+    font-size: larger;
+}
+#add-new-position-modal button{
+    margin: 12.5px 0;
 }
 #overlay {
     display: none;
@@ -234,4 +241,8 @@ section {
     width: 100%;
     background-color: #333333d0;
     z-index: 99;
+}
+.modal-input-div {
+    display: flex;
+    flex-direction: column;
 }
