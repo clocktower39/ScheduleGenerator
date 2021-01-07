@@ -7,6 +7,7 @@ let clearMemory = () => {
     });
     workers.forEach(worker => {
         worker.load = 0;
+        document.getElementById(`${worker.id}-score-display`).textContent = worker.load;
         // add lock feature logic later: if locked, dont clear assignment
         // worker.assignments = [];
     });

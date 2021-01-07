@@ -14,9 +14,9 @@ let createSchedule = () => {
         for(let i = 0; i < randomOrderWorkers.length; i++){
 
             if(((randomOrderWorkers[i].load + task.score) <= Number(randomOrderWorkers[i].maxLoad)) && randomOrderWorkers[i].programs.includes(task.associatedProgram) && randomOrderWorkers[i].available !== false ){
-                console.log((randomOrderWorkers[i].load + task.score) <= Number(randomOrderWorkers[i].maxLoad));
-                console.log(randomOrderWorkers[i]);
+
                 randomOrderWorkers[i].load += Number(task.score);
+                document.getElementById(`${randomOrderWorkers[i].id}-score-display`).textContent = randomOrderWorkers[i].load;
                 task.worker = randomOrderWorkers[i];
                 task.assigned = true;
                 let taskAssignment = `${task.worker.firstName} ${task.worker.lastName}`;
