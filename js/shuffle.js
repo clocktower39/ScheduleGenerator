@@ -16,4 +16,8 @@ function shuffle(array) {
   
     return array;
   }
-  
+
+const orderByLoad = (randomOrderArray) => {
+  let sortedRandomArray = randomOrderArray.slice().sort((a,b) => a.load > b.load);
+  return sortedRandomArray;
+}

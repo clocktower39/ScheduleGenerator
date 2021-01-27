@@ -151,7 +151,7 @@ let tasks = [
     {
         task: "Aveed",
         taskID: "aveed",
-        score: 1,
+        score: 4,
         assigned: false,
         worker: "",
         associatedProgram: "Aveed",
@@ -159,7 +159,7 @@ let tasks = [
     {
         task: "Alosetron",
         taskID: "alosetron",
-        score: 1,
+        score: 4,
         assigned: false,
         worker: "",
         associatedProgram: "Alosetron",
@@ -167,7 +167,7 @@ let tasks = [
     {
         task: "Bosentan",
         taskID: "bosentan",
-        score: 1,
+        score: 4,
         assigned: false,
         worker: "",
         associatedProgram: "Bosentan",
@@ -175,7 +175,7 @@ let tasks = [
     {
         task: "Nulojix",
         taskID: "nulojix",
-        score: 1,
+        score: 4,
         assigned: false,
         worker: "",
         associatedProgram: "Nulojix",
@@ -183,7 +183,7 @@ let tasks = [
     {
         task: "Xiaflex",
         taskID: "xiaflex",
-        score: 1,
+        score: 4,
         assigned: false,
         worker: "",
         associatedProgram: "Xiaflex",

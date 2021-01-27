@@ -9,7 +9,7 @@ maxLoadInput.addEventListener("change", (e) => {
 
 let createSchedule = () => {
     tasks.forEach((task) => {
-        let randomOrderWorkers = shuffle(workers);
+        let randomOrderWorkers = orderByLoad(shuffle(workers));
 
         for(let i = 0; i < randomOrderWorkers.length; i++){
 

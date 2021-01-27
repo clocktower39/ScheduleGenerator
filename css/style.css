@@ -252,3 +252,9 @@ section {
 .manage-staff-display-toggle-border {
     border: 1px solid black;
 }
+.workerProgramListContainer {
+    text-align: center;
+}
+.hide {
+    display: none;
+}

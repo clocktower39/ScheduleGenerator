@@ -1,4 +1,4 @@
-let addWorker = (worker) => {
+const addWorker = (worker) => {
     let manageStaff = document.getElementById('manage-staff');
         manageStaff.className = 'manage-staff-container';
 
@@ -10,6 +10,7 @@ let addWorker = (worker) => {
     let workerNameElem = document.createElement('button');
         workerNameElem.style.background = 'none';
         workerNameElem.style.border = 'none';
+        workerNameElem.style.fontSize = '18px';
         workerNameElem.textContent = worker.firstName;
         workerNameElem.addEventListener('click',(e) => {
             e.target.parentElement.classList.toggle('manage-staff-display-toggle-border');
@@ -22,9 +23,15 @@ let addWorker = (worker) => {
 
 
     let workerProgramListContainer = document.createElement('div');
+    workerProgramListContainer.className = 'workerProgramListContainer';
+    workerProgramListContainer.textContent = 'Programs';
+    workerProgramListContainer.addEventListener('click',(e) => {
+        e.target.childNodes.forEach((child, i) => (i>0)?child.classList.toggle("hide"):null)
+    })
         worker.programs.forEach(program => {
             let newProgram = document.createElement('p');
             newProgram.textContent = program;
+            newProgram.className = 'hide';
             workerProgramListContainer.appendChild(newProgram);
         })
 
