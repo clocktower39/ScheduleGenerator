@@ -68,7 +68,7 @@ let addTaskButton = () => {
     
     createBtn.innerHTML = '<i class="fas fa-plus-circle"></i>';
     createBtn.style.margin = 0;
-    createBtn.style.color = "#2AA9DB";
+    createBtn.style.color = "#507282";
     createBtn.style.fontSize = "50px";
     createBtn.id = "add-new-task-btn";
     createBtn.onclick = (e) => {

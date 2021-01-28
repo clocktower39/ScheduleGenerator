@@ -3,6 +3,7 @@ const addWorker = (worker) => {
         manageStaff.className = 'manage-staff-container';
 
     let workerContainer = document.createElement('div');
+        workerContainer.id = `${worker.id}-container`;
         workerContainer.className = 'worker-container';
         workerContainer.style.display = 'flex';
         workerContainer.style.flexDirection = 'column';
@@ -72,8 +73,15 @@ const addWorker = (worker) => {
     })
 
     checkboxLabel.htmlFor = `${worker.id}-checkbox`;
-    checkboxLabel.innerText = `${worker.firstName}`;
-
+    checkboxLabel.innerText = `Available`;
+    
+    let removeBtn = document.createElement('button');
+    removeBtn.innerHTML = '<i class="fas fa-trash"></i>';
+    removeBtn.style.margin = 0;
+    removeBtn.className = "remove-worker-btn";
+    removeBtn.onclick = (e) => {
+        removeStaff(worker);
+    }
     attendanceWorkerDiv.appendChild(checkbox);
     attendanceWorkerDiv.appendChild(checkboxLabel);
 
@@ -83,6 +91,7 @@ const addWorker = (worker) => {
     toggleDisplay.appendChild(workerProgramListContainer);
     toggleDisplay.appendChild(attendanceWorkerDiv);
     toggleDisplay.appendChild(currentScore);
+    toggleDisplay.appendChild(removeBtn);
 
     manageStaff.appendChild(workerContainer);
 }
@@ -93,5 +102,102 @@ workers.forEach(worker => {
 
 let addStaffBtn = document.getElementById('add-new-staff');
     addStaffBtn.addEventListener('click', () => {
-        alert('Under construction.')
+        openAddStaffModal();
     })
+
+let staffMenuView = document.getElementById('staff-menu-view');
+
+staffMenuView.addEventListener('click',() => {
+    let elemList = document.querySelectorAll('.worker-container');
+    let list = Array.from(elemList);
+    let filterList = list.filter(worker => worker.children[1].classList.contains('manage-staff-display-toggle'))
+    
+    const toggleList = (chosenList) => {
+        chosenList.forEach(elem => {
+            elem.classList.toggle('manage-staff-display-toggle-border');
+            elem.children[1].classList.toggle('manage-staff-display-toggle');
+        })
+    }
+    (filterList.length == 0)? toggleList(list):toggleList(filterList);
+});
+
+let openAddStaffModal = () => {
+    let modal = document.getElementById('add-new-staff-modal');
+    modal.style.display = "flex";
+    let overlay = document.getElementById('overlay');
+    overlay.style.display = "block";
+}
+
+let closeAddStaffModal = () => {
+    let modal = document.getElementById('add-new-staff-modal');
+    modal.style.display = 'none';
+    let overlay = document.getElementById('overlay');
+    overlay.style.display = "none";
+}
+
+let createAddStaffModalInput = (labelName, id, modal) => {
+    let modalInputDiv = document.createElement('div');
+    let input = document.createElement('input');
+    let label = document.createElement('label');
+
+    modalInputDiv.id = `${id}-input-div`;
+    modalInputDiv.className = `modal-input-div`;
+    
+    input.id = `${id}`;
+    input.className = 'modal-input';
+
+    label.id = `${id}-label`;
+    label.className = 'modal-input-label';
+    label.htmlFor = `${id}`;
+    label.innerText = labelName;
+
+    modalInputDiv.appendChild(label);
+    modalInputDiv.appendChild(input);
+
+    modal.appendChild(modalInputDiv);
+}
+
+let createAddStaffModal = () => {
+    let modal = document.createElement('div');
+
+    let closeAddStaffModalDiv = document.createElement('div');
+    closeAddStaffModalDiv.innerHTML = '<i class="far fa-times-circle"></i>';
+    closeAddStaffModalDiv.style.display = 'flex';
+    closeAddStaffModalDiv.style.justifyContent = 'flex-end';
+    closeAddStaffModalDiv.onclick = (e) => {
+        closeAddStaffModal();
+    }
+
+    modal.appendChild(closeAddStaffModalDiv);
+
+    createAddStaffModalInput("staff","staff-input-modal", modal);
+
+    let submitButton = document.createElement('button');
+    submitButton.innerText = "Create New Staff"
+    submitButton.onclick = (e) => {
+        // modify for staff addPositionToStaffs(staff, staffID, score, associatedProgram);
+        closeAddStaffModal();
+    }
+
+    modal.id = 'add-new-staff-modal';
+    modal.style.display = 'none';
+
+    modal.appendChild(submitButton);
+
+    document.body.appendChild(modal);
+}
+
+let removeStaff = (staffToRemove) => {
+    let indexToRemove;
+    for(let i = 0; i < workers.length; i++){
+        if(workers[i].id == staffToRemove.id){
+            indexToRemove = i;
+            document.getElementById(`${staffToRemove.id}-container`).remove();
+        }
+    }
+    if(indexToRemove >= 0){
+        workers.splice(indexToRemove, 1);
+    }
+}
+
+createAddStaffModal();
