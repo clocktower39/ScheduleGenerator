@@ -8,6 +8,9 @@ maxLoadInput.addEventListener("change", (e) => {
 });
 
 let createSchedule = () => {
+    tasks.sort((taskA, taskB) => {
+        return taskA.order > taskB.order
+    } )
     tasks.forEach((task) => {
         let randomOrderWorkers = orderByLoad(shuffle(workers));
 

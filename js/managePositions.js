@@ -4,10 +4,14 @@ let addTask = (task) => {
     let taskH4 = document.createElement('h4');
     let taskInput = document.createElement('input');
     let taskP = document.createElement('p');
+    let btnContainer = document.createElement('div');
+    let leftArrowBtn = document.createElement('button');
+    let rightArrowBtn = document.createElement('button');
     let removeBtn = document.createElement('button');
 
     taskDiv.id = `${task.taskID}-container`;
     taskDiv.className = "positions toggle-position-border";
+    taskDiv.style.order = task.order;
 
     taskH4.innerText = task.task;
 
@@ -38,17 +42,57 @@ let addTask = (task) => {
     taskP.className = 'task-assignee fade-in';
     taskP.innerText = 'Unassigned';
     
+    leftArrowBtn.innerHTML = '<i class="fas fa-arrow-alt-circle-left"></i>';
+    leftArrowBtn.style.margin = 0;
+    leftArrowBtn.className = "left-arrow-task-btn position-btn";
+    leftArrowBtn.onclick = (e) => {
+        // decrease style.order
+        if(taskDiv.style.order > 0){
+            
+            tasks.map(task => {
+                if(task.order == taskDiv.style.order-1){
+                    task.order++;
+                    document.getElementById(`${task.taskID}-container`).style.order = task.order;
+                }
+            });
+            task.order--;
+            taskDiv.style.order--;
+        }
+    }
+    rightArrowBtn.innerHTML = '<i class="fas fa-arrow-alt-circle-right"></i>';
+    rightArrowBtn.style.margin = 0;
+    rightArrowBtn.className = "right-arrow-task-btn position-btn";
+    rightArrowBtn.onclick = (e) => {
+        // increase style.order
+        if(taskDiv.style.order < tasks.length-1 ){
+            
+            tasks.map(task => {
+                if(task.order -1 == taskDiv.style.order){
+                    console.log(taskDiv.style.order)
+                    task.order--;
+                    document.getElementById(`${task.taskID}-container`).style.order = task.order;
+                }
+            });
+            task.order++;
+            taskDiv.style.order++;
+        }
+    }
     removeBtn.innerHTML = '<i class="fas fa-trash"></i>';
     removeBtn.style.margin = 0;
-    removeBtn.className = "remove-task-btn";
+    removeBtn.className = "remove-task-btn position-btn";
     removeBtn.onclick = (e) => {
         removeTask(task);
     }
 
+    
+    btnContainer.appendChild(leftArrowBtn);
+    btnContainer.appendChild(removeBtn);
+    btnContainer.appendChild(rightArrowBtn);
+
     taskDiv.appendChild(taskH4);
     taskDiv.appendChild(taskInput);
     taskDiv.appendChild(taskP);
-    taskDiv.appendChild(removeBtn);
+    taskDiv.appendChild(btnContainer);
     
     scheduleRow.appendChild(taskDiv);
 }
@@ -176,30 +220,25 @@ let createAddTaskModalInput = (labelName, id, modal) => {
 }
 
 let removeTask = (taskToRemove) => {
-    console.log(taskToRemove);
     let indexToRemove;
     for(let i = 0; i < tasks.length; i++){
         
 
         if(tasks[i].taskID == taskToRemove.taskID){
-            
-            console.log(tasks[i]);
-            console.log(taskToRemove);
             indexToRemove = i;
             document.getElementById(`${taskToRemove.taskID}-container`).remove();
         }
     }
-    console.log(tasks)
     if(indexToRemove >= 0){
         tasks.splice(indexToRemove, 1);
     }
-    console.log(tasks)
 }
 
 createAddTaskModal();
 
 addTaskButton();
 
-tasks.forEach(task => {
+tasks.forEach((task, index) => {
+    task.order = index;
     addTask(task);
 })

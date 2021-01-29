@@ -170,7 +170,12 @@ let createAddStaffModal = () => {
 
     modal.appendChild(closeAddStaffModalDiv);
 
-    createAddStaffModalInput("staff","staff-input-modal", modal);
+    createAddStaffModalInput("firstName","firstName-input-modal", modal);
+    createAddStaffModalInput("lastName","lastName-input-modal", modal);
+    createAddStaffModalInput("id","id-input-modal", modal);
+    createAddStaffModalInput("programs","programs-input-modal", modal);
+    createAddStaffModalInput("load","load-input-modal", modal);
+    createAddStaffModalInput("available","available-input-modal", modal);
 
     let submitButton = document.createElement('button');
     submitButton.innerText = "Create New Staff"
