@@ -12,6 +12,22 @@ let addTask = (task) => {
     taskDiv.id = `${task.taskID}-container`;
     taskDiv.className = "positions toggle-position-border";
     taskDiv.style.order = task.order;
+    
+    // makes arrows on positions toggle appear onmouseover and hide onmouseout
+    taskDiv.onmouseover = (e) => {
+        let lList = leftArrowBtn.classList;
+        let rList = rightArrowBtn.classList;
+
+        (lList.contains('hide'))?lList.toggle('hide'):null;
+        (rList.contains('hide'))?rList.toggle('hide'):null;
+    }
+    taskDiv.onmouseout = (e) => {
+        let lList = leftArrowBtn.classList;
+        let rList = rightArrowBtn.classList;
+
+        (!lList.contains('hide'))?lList.toggle('hide'):null;
+        (!rList.contains('hide'))?rList.toggle('hide'):null;
+    }
 
     taskH4.innerText = task.task;
 
@@ -44,7 +60,7 @@ let addTask = (task) => {
     
     leftArrowBtn.innerHTML = '<i class="fas fa-arrow-alt-circle-left"></i>';
     leftArrowBtn.style.margin = 0;
-    leftArrowBtn.className = "left-arrow-task-btn position-btn";
+    leftArrowBtn.className = "left-arrow-task-btn position-btn hide";
     leftArrowBtn.onclick = (e) => {
         // decrease style.order
         if(taskDiv.style.order > 0){
@@ -61,7 +77,7 @@ let addTask = (task) => {
     }
     rightArrowBtn.innerHTML = '<i class="fas fa-arrow-alt-circle-right"></i>';
     rightArrowBtn.style.margin = 0;
-    rightArrowBtn.className = "right-arrow-task-btn position-btn";
+    rightArrowBtn.className = "right-arrow-task-btn position-btn hide";
     rightArrowBtn.onclick = (e) => {
         // increase style.order
         if(taskDiv.style.order < tasks.length-1 ){
